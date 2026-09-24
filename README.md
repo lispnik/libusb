@@ -273,7 +273,7 @@ transfer registry exists for. It writes a pcap in the IEEE 802.15.4 TAP encapsul
 Wireshark shows per-frame RSSI, channel and link quality beside the decode.
 
 ```sh
-CC2531_CHANNEL=25 CC2531_SECONDS=15 CC2531_OUTPUT=/tmp/capture.pcap   sbcl --noinform --non-interactive --no-userinit --no-sysinit     --eval '(require :asdf)'     --eval '(asdf:initialize-source-registry `(:source-registry (:tree ,(truename "./")) :ignore-inherited-configuration))'     --eval '(asdf:load-system :libusb)' --load examples/cc2531-sniffer.lisp
+CC2531_CHANNEL=25 CC2531_SECONDS=15 CC2531_OUTPUT=/tmp/capture.pcap   sbcl --noinform --non-interactive --no-userinit --no-sysinit     --eval '(require :asdf)'     --eval '(asdf:initialize-source-registry `(:source-registry (:also-exclude "vendor") (:tree ,(truename "./")) :ignore-inherited-configuration))'     --eval '(asdf:load-system :libusb)' --load examples/cc2531-sniffer.lisp
 ```
 
 ```

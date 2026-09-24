@@ -3,7 +3,7 @@
 ;;;   CC2531_CHANNEL=25 CC2531_SECONDS=15 CC2531_OUTPUT=/tmp/zigbee.pcap \
 ;;;   sbcl --noinform --non-interactive --no-userinit --no-sysinit \
 ;;;     --eval '(require :asdf)' \
-;;;     --eval '(asdf:initialize-source-registry `(:source-registry (:tree ,(truename "./")) :ignore-inherited-configuration))' \
+;;;     --eval '(asdf:initialize-source-registry `(:source-registry (:also-exclude "vendor") (:tree ,(truename "./")) :ignore-inherited-configuration))' \
 ;;;     --eval '(asdf:load-system :libusb)' --load examples/cc2531-sniffer.lisp
 ;;;
 ;;; Needs write access to the device node: root, or a udev rule. Channels are 11-26.
@@ -292,8 +292,6 @@ Lisp process happened to notice them."
   (with-open-file (stream output :direction :output :element-type '(unsigned-byte 8)
                                 :if-exists :supersede)
     (write-pcap-header stream)
-    (multiple-value-bind (second minute hour) (decode-universal-time (get-universal-time))
-      (declare (ignore second minute hour)))
     (let ((capture (make-capture :stream stream
                                  :channel channel
                                  :base-seconds (- (get-universal-time)
