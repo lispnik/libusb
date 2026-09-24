@@ -1,0 +1,35 @@
+;;; Print the offsets and sizes ci/check-layout.sh compares against the C
+;;; compiler's. Names are spelled as the C field, not as the Lisp slot, so that
+;;; the two lists are diffable line for line.
+(in-package #:libusb)
+
+(macrolet ((o (c-struct c-field struct slot)
+             `(format t "~A.~A ~D~%" ,c-struct ,c-field
+                      (cffi:foreign-slot-offset '(:struct ,struct) ',slot)))
+           (s (c-struct struct)
+             `(format t "sizeof.~A ~D~%" ,c-struct
+                      (cffi:foreign-type-size '(:struct ,struct)))))
+  (o "libusb_transfer" "dev_handle"       libusb-transfer dev-handle)
+  (o "libusb_transfer" "flags"            libusb-transfer flags)
+  (o "libusb_transfer" "endpoint"         libusb-transfer endpoint)
+  (o "libusb_transfer" "type"             libusb-transfer type)
+  (o "libusb_transfer" "timeout"          libusb-transfer timeout)
+  (o "libusb_transfer" "status"           libusb-transfer status)
+  (o "libusb_transfer" "length"           libusb-transfer length)
+  (o "libusb_transfer" "actual_length"    libusb-transfer actual-length)
+  (o "libusb_transfer" "callback"         libusb-transfer callback)
+  (o "libusb_transfer" "user_data"        libusb-transfer user-data)
+  (o "libusb_transfer" "buffer"           libusb-transfer buffer)
+  (o "libusb_transfer" "num_iso_packets"  libusb-transfer num-iso-packets)
+  (o "libusb_transfer" "iso_packet_desc"  libusb-transfer iso-packet-desc)
+  (o "libusb_config_descriptor" "interface"   libusb-config-descriptor interface-array)
+  (o "libusb_endpoint_descriptor" "extra"     libusb-endpoint-descriptor extra)
+  (o "libusb_interface_descriptor" "endpoint" libusb-interface-descriptor endpoint)
+  (o "timeval" "tv_usec" timeval tv-usec)
+  (s "libusb_device_descriptor"      libusb-device-descriptor)
+  (s "libusb_config_descriptor"      libusb-config-descriptor)
+  (s "libusb_control_setup"          libusb-control-setup)
+  (s "libusb_iso_packet_descriptor"  libusb-iso-packet-descriptor)
+  (s "libusb_endpoint_descriptor"    libusb-endpoint-descriptor)
+  (s "libusb_interface_descriptor"   libusb-interface-descriptor)
+  (s "timeval"                       timeval))

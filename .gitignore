@@ -1,0 +1,14 @@
+*~
+.#*
+*.fasl
+
+# Vendored dependencies, restored with `ocicl install'. ocicl.csv pins them by
+# OCI digest and IS tracked; the sources themselves are not.
+ocicl/
+
+# Where CI and `make deploy' put the cffi-callback-closures checkout. It is not
+# in any ocicl registry, so it arrives as a path -- cloned, never committed.
+vendor/
+
+# Machine-specific: records an absolute path to the cffi-callback-closures checkout.
+.claude/settings.local.json

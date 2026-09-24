@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1500" viewBox="0 0 1240 1500">
+<rect width="1240" height="1500" fill="#fcfcfb"/>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b93a1"/></marker></defs>
+<text x="44" y="46" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb for Common Lisp</text>
+<text x="44" y="70" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">SBCL · CFFI · verified on macOS arm64 / libusb 1.0.30 and Raspberry Pi 4 aarch64 / libusb 1.0.28</text>
+<text x="44" y="118" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">1 — Five systems, split by build-time dependency weight</text>
+<text x="44" y="138" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">Not by platform: every file needs CFFI. The seam that matters is libffi.</text>
+<rect x="44" y="158" width="700" height="40" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+<text x="58" y="183" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">consumer code</text>
+<rect x="44" y="228" width="420" height="150" rx="7" fill="#ecfdf5" stroke="#0d9488" stroke-width="1.4"/>
+<text x="58" y="253" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb</text>
+<text x="58" y="275" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">contexts · devices · descriptors</text>
+<text x="58" y="292" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">string descriptors · sync transfers</text>
+<text x="58" y="309" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">async transfers · event pump</text>
+<text x="58" y="326" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0"></text>
+<text x="58" y="343" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">+ bordeaux-threads</text>
+<rect x="514" y="228" width="230" height="150" rx="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.4"/>
+<text x="528" y="253" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb/closures</text>
+<text x="528" y="275" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">hotplug.lisp</text>
+<text x="528" y="292" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">logging.lisp</text>
+<text x="528" y="309" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">shutdown.lisp</text>
+<line x1="512" y1="300" x2="422" y2="300" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="44" y="408" width="700" height="126" rx="7" fill="#eef2ff" stroke="#6366f1" stroke-width="1.4"/>
+<text x="58" y="433" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb/ffi</text>
+<text x="58" y="455" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">every exported libusb entry point · 22 structs · ~30 enums</text>
+<text x="58" y="472" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">the header's 15 static inlines, reimplemented in Lisp</text>
+<text x="58" y="489" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">the 1.0.29/1.0.30-only ones behind a runtime symbol probe</text>
+<text x="58" y="506" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0"></text>
+<text x="58" y="523" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">+ cffi only</text>
+<rect x="44" y="566" width="700" height="46" rx="7" fill="#f4f4f5" stroke="#a1a1aa" stroke-width="1.4"/>
+<text x="58" y="591" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb-1.0.so.0   /   libusb-1.0.0.dylib</text>
+<rect x="44" y="642" width="700" height="46" rx="7" fill="#f4f4f5" stroke="#a1a1aa" stroke-width="1.4"/>
+<text x="58" y="667" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">Linux usbfs /dev/bus/usb   ·   macOS IOKit</text>
+<rect x="44" y="718" width="700" height="40" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+<text x="58" y="743" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">USB devices</text>
+<line x1="164" y1="198" x2="164" y2="226" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="164" y1="378" x2="164" y2="406" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="164" y1="534" x2="164" y2="564" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="164" y1="612" x2="164" y2="640" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="164" y1="688" x2="164" y2="716" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="180" y="552" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">CFFI, resolved lazily at first call</text>
+<text x="790" y="248" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">why libusb/closures is separate</text>
+<text x="790" y="266" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">cffi-callback-closures, and through it</text>
+<text x="790" y="282" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">cffi-libffi and cffi-grovel: libffi</text>
+<text x="790" y="298" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">headers and a C compiler at build</text>
+<text x="790" y="314" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">time, and a system in no ocicl</text>
+<text x="790" y="330" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">registry, so it resolves as a path</text>
+<text x="790" y="346" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">or not at all.</text>
+<text x="790" y="362" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0"></text>
+<text x="790" y="378" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">Keeping it out of libusb is what</text>
+<text x="790" y="394" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">keeps `ocicl install libusb' possible.</text>
+<text x="790" y="428" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb/ffi loads without libusb</text>
+<text x="790" y="446" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">defcfun resolves lazily and</text>
+<text x="790" y="462" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">load-libraries is lazy, so this</text>
+<text x="790" y="478" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">system compiles and loads on a</text>
+<text x="790" y="494" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">machine with no libusb at all —</text>
+<text x="790" y="510" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">which is what lets the enum,</text>
+<text x="790" y="526" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">struct-offset and descriptor tests</text>
+<text x="790" y="542" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">run anywhere, CI included.</text>
+<text x="790" y="576" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">the device nodes</text>
+<text x="790" y="594" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">root:root 0664 on the Pi, so as an</text>
+<text x="790" y="610" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">ordinary user enumeration and</text>
+<text x="790" y="626" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">descriptors work and libusb_open</text>
+<text x="790" y="642" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">returns LIBUSB_ERROR_ACCESS.</text>
+<line x1="44" y1="800" x2="1196" y2="800" stroke="#e4e4e7" stroke-width="1"/>
+<text x="44" y="840" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">2 — How C reaches Lisp: two mechanisms, on purpose</text>
+<text x="44" y="860" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">libusb has four callback types. They are not the same problem, so they are not solved the same way.</text>
+<rect x="44" y="880" width="1152" height="52" rx="7" fill="#f4f4f5" stroke="#a1a1aa" stroke-width="1.4"/>
+<text x="58" y="905" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">libusb_handle_events_timeout_completed(ctx, tv, completed)</text>
+<text x="58" y="927" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">dispatched on a Lisp event-pump thread (:thread) or on the thread that is waiting for a transfer (:manual)</text>
+<line x1="224" y1="932" x2="224" y2="966" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="832" y1="932" x2="832" y2="966" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<text x="234" y="954" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">a transfer completed</text>
+<text x="842" y="954" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11.5" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">a device arrived / libusb logged</text>
+<rect x="44" y="966" width="560" height="62" rx="7" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.4"/>
+<text x="58" y="991" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">ONE cffi:defcallback  %transfer-complete</text>
+<text x="58" y="1013" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">the only native callback in the image</text>
+<rect x="652" y="966" width="544" height="62" rx="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.4"/>
+<text x="666" y="991" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="15" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">a libffi closure per Lisp closure</text>
+<text x="666" y="1013" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">ffi_closure_alloc: one executable page each</text>
+<rect x="44" y="1058" width="560" height="46" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+<text x="58" y="1083" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">transfer-&gt;user_data  →  integer index</text>
+<rect x="652" y="1058" width="544" height="46" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+<text x="666" y="1083" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">the closure carries its own Lisp state</text>
+<line x1="224" y1="1028" x2="224" y2="1056" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="832" y1="1028" x2="832" y2="1056" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="44" y="1134" width="560" height="46" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+<text x="58" y="1159" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">*transfers*  →  transfer record   (locked)</text>
+<line x1="224" y1="1104" x2="224" y2="1132" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="832" y1="1104" x2="832" y2="1210" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="44" y="1210" width="560" height="46" rx="7" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.4"/>
+<text x="58" y="1235" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">with-callback-guard</text>
+<rect x="652" y="1210" width="544" height="46" rx="7" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.4"/>
+<text x="666" y="1235" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">with-callback-guard   (returns 0, never 1)</text>
+<line x1="224" y1="1180" x2="224" y2="1208" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<rect x="44" y="1286" width="560" height="84" rx="7" fill="#ecfdf5" stroke="#0d9488" stroke-width="1.4"/>
+<text x="58" y="1311" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">the completion, in order</text>
+<text x="58" y="1333" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">mirror status and actual_length into Lisp</text>
+<text x="58" y="1350" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">run the user function — which may resubmit</text>
+<text x="58" y="1367" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">set the completion flag, then signal the semaphore</text>
+<rect x="652" y="1286" width="544" height="84" rx="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.4"/>
+<text x="666" y="1311" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">the handler</text>
+<text x="666" y="1333" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">hotplug: (device event registration)</text>
+<text x="666" y="1350" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">log: (ctx level message), with a reentrancy guard</text>
+<text x="666" y="1367" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">returning :deregister ends the registration</text>
+<line x1="224" y1="1256" x2="224" y2="1284" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<line x1="832" y1="1256" x2="832" y2="1284" stroke="#8b93a1" stroke-width="1.6" marker-end="url(#arrow)"/>
+<path d="M 564 1328 L 626 1328 L 626 997 L 608 997" fill="none" stroke="#8b93a1" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+<text x="632" y="1170" font-family="Menlo, DejaVu Sans Mono, monospace" font-size="11" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">libusb_submit_transfer</text>
+<text x="632" y="1186" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">from inside the callback:</text>
+<text x="632" y="1200" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11" fill="#8b93a1" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">the streaming idiom</text>
+<rect x="44" y="1400" width="1152" height="64" rx="7" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4" stroke-dasharray="5 4"/>
+<text x="60" y="1422" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="12.5" fill="#1f2328" text-anchor="start" font-weight="600" font-style="normal" opacity="1.0">Why not one mechanism for both:</text>
+<text x="60" y="1442" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">a libffi closure costs an mmap'd executable page, and transfers are many and short-lived — struct libusb_transfer hands us a void* that is exactly the demultiplexer a closure</text>
+<text x="60" y="1457" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="11.5" fill="#5b6472" text-anchor="start" font-weight="normal" font-style="normal" opacity="1.0">would pay for. Meanwhile libusb_set_log_cb takes no user_data at all, so a per-context Lisp handler has nowhere to put an index and must BE its own C function pointer.</text>
+</svg>

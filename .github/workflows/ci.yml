@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    # Both architectures, on native hardware. aarch64 is not decoration here: this
+    # library marshals C callbacks through libffi closures and reads foreign structs by
+    # slot offset, and the machine it is actually deployed to is a Raspberry Pi. The
+    # closure trampoline, the writable-then-executable page and the argument marshalling
+    # all differ between System V and AAPCS64, so x86_64 passing says nothing about the
+    # target.
+    name: linux/${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # libusb-1.0-0-dev is not needed to run -- the bindings dlopen libusb-1.0.so.0 --
+      # but it is what puts the bare .so symlink and the pkg-config file in place, and
+      # ci/check-layout.sh needs the header. libffi-dev and pkg-config are for
+      # cffi-grovel compiling cffi-callback-closures' grovel file against ffi.h.
+      - name: Install SBCL, libusb and libffi
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends \
+            sbcl libusb-1.0-0-dev libffi-dev pkg-config build-essential
+          sbcl --version
+
+      - name: Cache ocicl
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.local/bin
+            ~/.local/share/ocicl
+          key: ocicl-${{ matrix.arch }}-v1
+
+      # Keyed on ocicl.csv because that file pins every dependency by OCI digest: if it
+      # has not changed, neither have the bytes underneath it.
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ocicl
+          key: deps-${{ matrix.arch }}-${{ hashFiles('ocicl.csv') }}
+
+      - name: Install ocicl if it is not cached
+        run: |
+          if ! command -v ocicl >/dev/null && [ ! -x ~/.local/bin/ocicl ]; then
+            git clone --depth 1 https://github.com/ocicl/ocicl
+            cd ocicl && make && make install
+          fi
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Set up ocicl
+        run: ocicl setup > /dev/null
+
+      - name: Test
+        run: ci/test.sh
