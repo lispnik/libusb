@@ -33,6 +33,21 @@ make clean         # drop this tree's fasl cache
 
 To run one test: `(fiveam:run! 'libusb/tests::the-dispatcher-finds-the-right-transfer-out-of-a-thousand)`.
 
+The Lisp snippets above assume a source registry. The Makefile's `BOOT` sets up a
+**hermetic** one on purpose. It walks this tree as a `:tree`, excluding `vendor/`, and
+adds exactly one `:directory` for `CCC_DIR`, ignoring inherited configuration. A `:tree`
+over the ccc checkout (or over `vendor/`, where CI clones it) would bring in its own
+vendored copy of cffi, and two cffis on the registry produce errors that look like type
+confusion. At a REPL, copy that `initialize-source-registry` form. Don't widen it.
+
+CI (`ci/test.sh`, on Linux x86_64 and aarch64) runs `make test`, `make check` and
+`make layout`, in that order. It clones cffi-callback-closures into
+`vendor/cffi-callback-closures` if it's missing.
+
+Always use `make deploy` to push to the Pi, never a bare rsync. rsync keeps mtimes, so
+the Pi's ASDF can decide stale fasls are current. `deploy` deletes both the `pi` fasl
+cache and root's (`pi-test-root` runs under `sudo -E`), then checks that they're gone.
+
 ## Architecture
 
 Five systems, split by **build-time dependency weight** rather than platform. Every file
@@ -87,6 +102,10 @@ nowhere to put a registry index.
   future device would break enumeration for the whole bus. Device-reported bindings
   return `:int` and the ergonomic layer converts with `ENUM-KEYWORD`, which falls back to
   the integer.
+- **libusb version differences are a run-time fact, never `#+`.** Entry points that
+  exist only in 1.0.29/1.0.30 go in `src/ffi-optional.lisp`, behind a
+  `cffi:foreign-symbol-pointer` probe that signals `LIBUSB-UNSUPPORTED-FUNCTION` when
+  the symbol is absent. A saved image can be restored against a different libusb.
 - **Every callback body goes through `WITH-CALLBACK-GUARD`.** Neither
   `cffi:defcallback` nor `cffi-callback-closures` contains an error; an escaped condition
   reaches libusb's C frame. The guard also masks float traps, because a callback can
