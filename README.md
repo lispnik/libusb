@@ -266,6 +266,25 @@ before dumping and `OPEN-CONTEXT` again afterwards.
 `examples/lsusb.lisp` lists the bus, with strings where it has permission to open a
 device, and fires a hotplug `ENUMERATE` pass.
 
+`examples/ft232r.lisp` drives an FTDI FT232R USB-serial chip directly, with no FTDI
+driver and no serial port. It uses vendor control requests both ways, bulk OUT, and a
+bulk IN endpoint whose every packet starts with two modem-status bytes.
+
+By default it only reads:
+- the descriptors
+- the EEPROM, with FTDI's checksum verified
+- the modem lines and the eight pin states
+
+`FT232R_DRIVE=1` adds two tests that drive the pins, for a chip with nothing wired to
+it:
+- an asynchronous bit-bang self-test that walks a bit across the pins and reads each
+  pattern back
+- a serial transmit at a baud rate encoded as libftdi does, which checks what comes
+  back if TX is jumpered to RX
+
+On macOS it runs without root while `/dev/cu.usbserial-*` is closed. On Linux it
+detaches `ftdi_sio` and reattaches it afterwards.
+
 The CC2531 sniffer that used to be here is now its own project,
 [lispnik/zigbee-sniffer](https://github.com/lispnik/zigbee-sniffer): a command-line tool
 that captures to the terminal, to pcap for Wireshark, or live down a pipe, and surveys
