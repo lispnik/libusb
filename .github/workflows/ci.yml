@@ -60,11 +60,17 @@ jobs:
           path: ocicl
           key: deps-${{ matrix.arch }}-${{ hashFiles('ocicl.csv') }}
 
+      # ocicl builds from source with `sbcl --load setup.lisp', which installs the binary
+      # in ~/.local/bin; it has no Makefile. Cloned outside the workspace, because ./ocicl
+      # is where this project's vendored dependencies live. Each command on its own line
+      # so that a failure fails the step: inside an `if', a failing `&&' chain does not
+      # trip bash -e, and the step would pass with no ocicl installed.
       - name: Install ocicl if it is not cached
         run: |
           if ! command -v ocicl >/dev/null && [ ! -x ~/.local/bin/ocicl ]; then
-            git clone --depth 1 https://github.com/ocicl/ocicl
-            cd ocicl && make && make install
+            git clone --depth 1 --quiet https://github.com/ocicl/ocicl.git "$RUNNER_TEMP/ocicl"
+            (cd "$RUNNER_TEMP/ocicl" && sbcl --non-interactive --load setup.lisp > /dev/null)
+            test -x ~/.local/bin/ocicl
           fi
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
