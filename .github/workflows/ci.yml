@@ -25,13 +25,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # Pinned, not ubuntu-latest, so the libusb under test changes only on
+          # purpose: 24.04 ships 1.0.27, the oldest version this runs against.
           - arch: x86_64
-            runner: ubuntu-latest
+            runner: ubuntu-24.04
           - arch: aarch64
             runner: ubuntu-24.04-arm
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # libusb-1.0-0-dev is not needed to run -- the bindings dlopen libusb-1.0.so.0 --
       # but it is what puts the bare .so symlink and the pkg-config file in place, and
@@ -45,7 +47,7 @@ jobs:
           sbcl --version
 
       - name: Cache ocicl
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             ~/.local/bin
@@ -55,7 +57,7 @@ jobs:
       # Keyed on ocicl.csv because that file pins every dependency by OCI digest: if it
       # has not changed, neither have the bytes underneath it.
       - name: Cache dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ocicl
           key: deps-${{ matrix.arch }}-${{ hashFiles('ocicl.csv') }}
