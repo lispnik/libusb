@@ -10,10 +10,13 @@ This is the test that catches a typo in a C function name, which is otherwise
 invisible until somebody calls that one function and gets an undefined-alien error
 naming an address. It deliberately does not assert a count: libusb 1.0.28 on the
 Raspberry Pi exports five fewer entry points than 1.0.30 on a development machine,
-and those five are bound behind a runtime probe precisely so that the library loads
-on both. So the assertion is the narrower and truer one -- anything missing must be
-one of the five we already know about."
-  (let* ((known-later '("libusb_get_device_string" "libusb_get_session_data"
+and 1.0.27 on CI's Ubuntu 24.04 two fewer again. Those seven are bound behind a
+runtime probe precisely so that the library loads on all three. So the assertion is
+the narrower and truer one -- anything missing must be one of the seven we already
+know about."
+  (let* ((known-later '("libusb_get_ssplus_usb_device_capability_descriptor"
+                        "libusb_free_ssplus_usb_device_capability_descriptor"
+                        "libusb_get_device_string" "libusb_get_session_data"
                         "libusb_endpoint_supports_raw_io" "libusb_endpoint_set_raw_io"
                         "libusb_get_max_raw_io_transfer_size"))
          (missing (remove-if (lambda (binding)

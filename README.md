@@ -291,7 +291,7 @@ src/conditions.lisp     the condition hierarchy and CHECK-RESULT
 src/enums.lisp          ~30 enums and bitfields, and tolerant translation
 src/structs.lisp        22 foreign structs, hand-written
 src/ffi.lisp            every exported libusb entry point
-src/ffi-optional.lisp   the 1.0.29/1.0.30-only ones, behind a runtime probe
+src/ffi-optional.lisp   the 1.0.28-and-later ones, behind a runtime probe
 src/inline.lisp         the header's static inlines, reimplemented in Lisp
 src/api-package.lisp    ergonomic-layer exports
 src/core.lisp           contexts, and the teardown order
@@ -317,11 +317,15 @@ and a C compiler at build time, by way of `cffi-callback-closures` -- which is n
 ocicl registry and so must be a checkout on the ASDF source registry; the `Makefile`
 takes `CCC_DIR` for it and `make deploy` ships it to the Pi.
 
-Version-guarded entry points (`libusb_get_device_string`, `libusb_get_session_data` and
-the 1.0.29 raw-I/O trio) are probed with `cffi:foreign-symbol-pointer` at call time
+Version-guarded entry points are probed with `cffi:foreign-symbol-pointer` at call time
 rather than gated on a read-time feature, because which libusb we are loaded against is
-a run-time fact: the same fasl runs against 1.0.30 on a laptop and 1.0.28 on a
-Raspberry Pi.
+a run-time fact. There are seven:
+- the 1.0.28 SuperSpeedPlus descriptor pair
+- the 1.0.29 raw-I/O trio
+- `libusb_get_device_string` and `libusb_get_session_data`, from 1.0.30
+
+The same fasl runs against 1.0.30 on a laptop, 1.0.28 on a Raspberry Pi and 1.0.27 in
+CI.
 
 ## License
 

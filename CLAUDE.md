@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 CFFI bindings to **libusb-1.0**, in two layers: a complete raw layer over every entry
 point libusb exports, and an ergonomic layer over contexts, enumeration, descriptors,
 synchronous and asynchronous transfers, hotplug and logging. SBCL, developed on macOS
-arm64 against libusb 1.0.30, verified on a Raspberry Pi 4 (aarch64) against 1.0.28.
+arm64 against libusb 1.0.30, verified on a Raspberry Pi 4 (aarch64) against 1.0.28,
+and CI-tested on Ubuntu 24.04 (x86_64 and aarch64) against 1.0.27.
 
 ## Commands
 
@@ -103,7 +104,7 @@ nowhere to put a registry index.
   return `:int` and the ergonomic layer converts with `ENUM-KEYWORD`, which falls back to
   the integer.
 - **libusb version differences are a run-time fact, never `#+`.** Entry points that
-  exist only in 1.0.29/1.0.30 go in `src/ffi-optional.lisp`, behind a
+  exist only in 1.0.28 or later go in `src/ffi-optional.lisp`, behind a
   `cffi:foreign-symbol-pointer` probe that signals `LIBUSB-UNSUPPORTED-FUNCTION` when
   the symbol is absent. A saved image can be restored against a different libusb.
 - **Every callback body goes through `WITH-CALLBACK-GUARD`.** Neither

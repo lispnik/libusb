@@ -1,9 +1,12 @@
 ;;; Entry points that may not exist in the libusb we are loaded against.
 ;;;
-;;; libusb 1.0.29 added the raw-I/O trio, and 1.0.30 added
-;;; libusb_get_device_string and libusb_get_session_data. The Raspberry Pi this
-;;; library is verified on runs 1.0.28, which has none of them, while the
-;;; machine it is developed on runs 1.0.30, which has all five.
+;;; libusb 1.0.28 added the SuperSpeedPlus capability descriptor pair, 1.0.29 the
+;;; raw-I/O trio, and 1.0.30 libusb_get_device_string and libusb_get_session_data.
+;;; The machine this library is developed on runs 1.0.30, which has all seven; the
+;;; Raspberry Pi it is verified on runs 1.0.28, which lacks the last five; and CI's
+;;; Ubuntu 24.04 runners ship 1.0.27, which has none of them. Binding the
+;;; SuperSpeedPlus pair unconditionally went unnoticed on the first two and failed
+;;; on the third.
 ;;;
 ;;; The guard is a runtime CFFI:FOREIGN-SYMBOL-POINTER probe rather than a
 ;;; read-time feature, and that is the whole point of this file: which libusb we
@@ -41,6 +44,19 @@ which is the right trade for an entry point nobody calls in a hot loop."
                     for type in arg-types
                     append (list type name))
             ,return-type))))))
+
+;;; libusb 1.0.28: USB 3.2 SuperSpeedPlus, from a BOS device capability.
+(define-optional-libusb-function ("libusb_get_ssplus_usb_device_capability_descriptor"
+                                  %libusb-get-ssplus-usb-device-capability-descriptor
+                                  "1.0.28") :int
+  (ctx :pointer)
+  (dev-cap :pointer)
+  (ssplus-usb-device-cap :pointer))
+
+(define-optional-libusb-function ("libusb_free_ssplus_usb_device_capability_descriptor"
+                                  %libusb-free-ssplus-usb-device-capability-descriptor
+                                  "1.0.28") :void
+  (ssplus-usb-device-cap :pointer))
 
 ;;; libusb 1.0.30. Answers manufacturer / product / serial without opening the
 ;;; device at all, which on Linux is the difference between needing write

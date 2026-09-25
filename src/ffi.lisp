@@ -160,15 +160,8 @@ export the same set and a binding that is merely absent is not a bug.")
                          %libusb-free-ss-usb-device-capability-descriptor) :void
   (ss-usb-device-cap :pointer))
 
-(define-libusb-function ("libusb_get_ssplus_usb_device_capability_descriptor"
-                         %libusb-get-ssplus-usb-device-capability-descriptor) :int
-  (ctx :pointer)
-  (dev-cap :pointer)
-  (ssplus-usb-device-cap :pointer))
-
-(define-libusb-function ("libusb_free_ssplus_usb_device_capability_descriptor"
-                         %libusb-free-ssplus-usb-device-capability-descriptor) :void
-  (ssplus-usb-device-cap :pointer))
+;;; The SuperSpeedPlus pair, libusb_get/free_ssplus_usb_device_capability_descriptor,
+;;; is 1.0.28 and later, so it lives in ffi-optional.lisp.
 
 (define-libusb-function ("libusb_get_container_id_descriptor"
                          %libusb-get-container-id-descriptor) :int
