@@ -266,37 +266,12 @@ before dumping and `OPEN-CONTEXT` again afterwards.
 `examples/lsusb.lisp` lists the bus, with strings where it has permission to open a
 device, and fires a hotplug `ENUMERATE` pass.
 
-`examples/cc2531-sniffer.lisp` is a working IEEE 802.15.4 sniffer on a TI CC2531 dongle,
-and it is the example that exercises what nothing else does: eight transfers in flight at
-once, each resubmitted from its own completion callback, which is the streaming idiom the
-transfer registry exists for. It writes a pcap in the IEEE 802.15.4 TAP encapsulation, so
-Wireshark shows per-frame RSSI, channel and link quality beside the decode.
-
-```sh
-CC2531_CHANNEL=25 CC2531_SECONDS=15 CC2531_OUTPUT=/tmp/capture.pcap   sbcl --noinform --non-interactive --no-userinit --no-sysinit     --eval '(require :asdf)'     --eval '(asdf:initialize-source-registry `(:source-registry (:also-exclude "vendor") (:tree ,(truename "./")) :ignore-inherited-configuration))'     --eval '(asdf:load-system :libusb)' --load examples/cc2531-sniffer.lisp
-```
-
-```
-CC2531 ident 31 25 31 05 02 00 01 00, radio 4, channel 25
-
-wrote /tmp/capture.pcap
-  21 frames seen, 15 written, 6 failed CRC (excluded; set CC2531_INCLUDE_BAD_CRC=1 to keep them)
-  5 timer heartbeats, mean RSSI -11.0 dBm
-```
-
-Two things in there were established by measurement rather than from a datasheet, and the
-file says so at length. The USB stream framing -- a 3-byte type-and-length header, then a
-32-bit 1/32 µs counter, a length byte, and a frame whose last two bytes are RSSI and a
-status byte carrying CRC-OK -- was read off a hexdump and then confirmed when a frame
-arrived with a single flipped byte and its CRC-OK bit clear, exactly where that layout
-predicts. And the TAP TLV numbering was pinned by feeding candidate files to `tshark`
-until it named every field, which is how the link-quality TLV is 10 and not the 9 or 11
-tried beside it.
-
-Bad-CRC frames are counted but kept out of the file by default, because their bytes are
-known to differ from what was transmitted and a dissector cannot tell: in the first run of
-this example a corrupt beacon decoded as a *different* device, its extended address off by
-one byte from the real one.
+The CC2531 sniffer that used to be here is now its own project,
+[lispnik/zigbee-sniffer](https://github.com/lispnik/zigbee-sniffer): a command-line tool
+that captures to the terminal, to pcap for Wireshark, or live down a pipe, and surveys
+channels. It exercises what nothing in this repository does -- eight bulk transfers in
+flight at once, each resubmitted from its own completion callback, which is the
+streaming idiom the transfer registry exists for.
 
 ## Architecture
 
