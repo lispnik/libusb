@@ -285,6 +285,16 @@ it:
 On macOS it runs without root while `/dev/cu.usbserial-*` is closed. On Linux it
 detaches `ftdi_sio` and reattaches it afterwards.
 
+`examples/fx2load.lisp` loads firmware into a Cypress EZ-USB FX2 or FX2LP, as `fxload`
+does -- the chip in most cheap 8-channel logic analyzers. Its one request, `0xA0`, is
+decoded by the chip's USB core in hardware, so it works on a device with no firmware at
+all, and carries data both ways: the loader holds the 8051 in reset, writes an Intel HEX
+image into RAM, reads every byte back, and only then lets the CPU run. By default it only
+reads (`CPUCS` and the first bytes of RAM); `FX2_HEX=file.hex` loads and starts that
+image. It refuses records outside the FX2LP's RAM, so an image cannot write a control
+register by accident. The HEX parser and the load sequence were checked against a
+simulated chip; the example has not yet been run against a real FX2.
+
 The CC2531 sniffer that used to be here is now its own project,
 [lispnik/zigbee-sniffer](https://github.com/lispnik/zigbee-sniffer): a command-line tool
 that captures to the terminal, to pcap for Wireshark, or live down a pipe, and surveys
